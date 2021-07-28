@@ -24,24 +24,6 @@ public class Tema{
 		@NotNull(message = "O atributo Descrição deve ser obrigatório")
 		private String descricao;
 		
-		/**
-	 *  /@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL): Annotation (Anotação), que indica 
-	 *  que a Classe Tema terá um relacionamento do tipo One To Many (Um para Muitos) com a Classe 
-	 *  Tema
-	 *  
-	 *  mappedBy = "tema": Indica qual Objeto seráutilizado como "chave estrangeira" no relacionamento,
-	 *  em nosso exemplo será o objeto tema inserido na Classe Postagem
-	 * 
-	 *  cascade = CascadeType.ALL: Indica que toda e qualquer mudança efetuada num objeto da Classe 
-	 *  Tema se propagará para todos os respectivos objetos associados.
-	 *  Exemplo: Se eu apagar um tema, todas as postagens associadas ao tema apagado também serão apagadas.
-	 * 
-	 *  @JsonIgnoreProperties("postagem"): Annotation (Anotação), que desabilita a recursividade
-	 *  infinita durante a exibição dos dados no formato JSON
-	 *  
-	 *  private List<Postagem> postagem: Collection do tipo List composta por Objetos do tipo Postagem 
-	 *  que listará todas as postagens associadas com os respectivos temas
-	 */
 		@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL)
 		@JsonIgnoreProperties("tema")
 		private List<Postagem> postagem;
