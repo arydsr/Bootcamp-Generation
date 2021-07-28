@@ -9,58 +9,59 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
+import javax.validation.constraints.NotNull;
+
+@Entity 
 @Table(name = "postagem")
 public class Postagem {
 
-@Id	
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private long id;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id; 
 
-@NotNull
-@Size(min = 5 , max = 100)
-private String titulo;
+	@NotNull (message = "O Atributo título é obrigatório")
+	@Size(min = 5, max = 100)
+	private String titulo; 
+	
+	@NotNull
+	@Size(min = 10, max = 500)
+	private String texto; 
+	
+	@Temporal(TemporalType.TIMESTAMP) 
+	private Date date = new java.sql.Date(System.currentTimeMillis());
 
-@NotNull
-@Size(min = 10 , max = 500)
-private String texto;
+	public long getId() {
+		return id;
+	}
 
-@Temporal(TemporalType.TIMESTAMP)
-private Date date = new java.sql.Date(System.currentTimeMillis());
+	public void setId(long id) {
+		this.id = id;
+	}
 
-public long getId() {
-	return id;
-}
+	public String getTitulo() {
+		return titulo;
+	}
 
-public void setId(long id) {
-	this.id = id;
-}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
 
-public String getTitulo() {
-	return titulo;
-}
+	public String getTexto() {
+		return texto;
+	}
 
-public void setTitulo(String titulo) {
-	this.titulo = titulo;
-}
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
 
-public String getTexto() {
-	return texto;
-}
+	public Date getDate() {
+		return date;
+	}
 
-public void setTexto(String texto) {
-	this.texto = texto;
-}
-
-public Date getDate() {
-	return date;
-}
-
-public void setDate(Date date) {
-	this.date = date;
-}
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	
 }
