@@ -20,25 +20,24 @@ import br.org.generation.lojagames.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categorias")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins="*", allowedHeaders="*")
 public class CategoriaController {
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
-	private ResponseEntity<List<Categoria>> getall(){
+	private ResponseEntity<List<Categoria>> getAll(){
 		
 		return ResponseEntity.ok(categoriaRepository.findAll());
-		
 	}
-	
+
 	@GetMapping("/{id}")
 	private ResponseEntity<Categoria> getById(@PathVariable long id){
 		
 		return categoriaRepository.findById(id)
-			.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+		.map(resp -> ResponseEntity.ok(resp))
+		.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/tipo/{tipo}")
@@ -46,20 +45,23 @@ public class CategoriaController {
 		
 		return ResponseEntity.ok(categoriaRepository.findAllByTipoContainingIgnoreCase(tipo));	
 	}
-
 	
 	@PostMapping
 	public ResponseEntity<Categoria> post (@RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
 		
+		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
 	}
+	
 	@PutMapping
 	public ResponseEntity<Categoria> put (@RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(categoria));
 		
+		return ResponseEntity.status(HttpStatus.OK).body(categoriaRepository.save(categoria));
 	}
+	
 	@DeleteMapping("/{id}")
-	public void deleteId(@PathVariable long id){
+	public void deleteId(@PathVariable long id) {
+		
 		categoriaRepository.deleteById(id);
-		}
+	}
 }
+

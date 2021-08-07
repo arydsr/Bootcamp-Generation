@@ -17,25 +17,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "tb_categoria")
 public class Categoria {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long Id;
+	private long id;
 	
-	@NotNull(message = "O atributo tipo não pode ser nulo!")
+	@NotNull(message = "O Atributo tipo não pode ser Nulo!")
 	private String tipo;
-	
-	@OneToMany(mappedBy = "tb_categoria", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("tb_categoria")
-	
-	private List<Produto> tb_produtos;
 
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("categoria")
+	private List<Produto> produto;
+	
 	public long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getTipo() {
@@ -45,13 +43,13 @@ public class Categoria {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-	public List<Produto> getTb_produtos() {
-		return tb_produtos;
+	
+	public List<Produto> getProduto() {
+		return produto;
 	}
 
-	public void setTb_produtos(List<Produto> tb_produtos) {
-		this.tb_produtos = tb_produtos;
+	public void setProduto(List<Produto> produto) {
+		this.produto = produto;
 	}
 	
 }

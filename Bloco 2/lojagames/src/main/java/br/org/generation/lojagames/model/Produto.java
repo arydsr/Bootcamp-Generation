@@ -1,5 +1,7 @@
 package br.org.generation.lojagames.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,55 +9,54 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity
-@Table(name = "tb_produtos")
+@Entity                                             		
+@Table(name = "tb_produto")	
 public class Produto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private long id;
 	
-	@NotNull
-	private String titulo;
+	@NotNull                                       										
+	private String nome;
 	
-	@NotNull
+	@Size(min = 5, max = 500)
 	private String descricao;
 	
 	@NotNull
 	private String console;
 	
-	@NotNull(message = "O valor tipo não pode ser nulo!")
-	private double valor;
+	@NotNull
+	@Positive
+	private BigDecimal preco;
 	
-	@ManyToOne	
-	@JsonIgnoreProperties("tb_produtos")
-	private Categoria tb_categoria;
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
 
-	public String getConsole() {
-		return console;
-	}
-
-	public void setConsole(String console) {
-		this.console = console;
-	}
-
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public String getTitulo() {
-		return titulo;
+
+	public String getNome() {
+		return nome;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getDescricao() {
@@ -66,20 +67,36 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public double getValor() {
-		return valor;
+	public String getConsole() {
+		return console;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setConsole(String console) {
+		this.console = console;
 	}
 
-	public Categoria getTb_categoria() {
-		return tb_categoria;
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
-	public void setTb_categoria(Categoria tb_categoria) {
-		this.tb_categoria = tb_categoria;
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
-		
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

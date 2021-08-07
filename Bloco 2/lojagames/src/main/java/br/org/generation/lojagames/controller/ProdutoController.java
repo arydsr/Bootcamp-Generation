@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.org.generation.lojagames.model.Produto;
 import br.org.generation.lojagames.repository.ProdutoRepository;
 
-
-@RestController
-@RequestMapping("/produto")
+@RestController	
+@RequestMapping("/produtos")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProdutoController {
 	
@@ -28,39 +27,36 @@ public class ProdutoController {
 	private ProdutoRepository produtoRepository;
 	
 	@GetMapping
-	private ResponseEntity<List<Produto>> getall(){
+	public ResponseEntity<List<Produto>> getAll(){
 		return ResponseEntity.ok(produtoRepository.findAll());
-		
 	}
-	
 	@GetMapping("/{id}")
-	private ResponseEntity<Produto> getById(@PathVariable long id){
-		
+	public ResponseEntity<Produto> getById(@PathVariable long id){
 		return produtoRepository.findById(id)
-			.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+		.map(resp-> ResponseEntity.ok(resp))
+		.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/nome/{nome}")
-	public ResponseEntity<List<Produto>> GetByName(@PathVariable String nome){
-		
-		return ResponseEntity.ok(produtoRepository.findAllByTituloContainingIgnoreCase(nome));	
-	}
-
+	public ResponseEntity<List<Produto>> getByName(@PathVariable String nome){
+		return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
+	}	
 	
 	@PostMapping
-	public ResponseEntity<Produto> post (@RequestBody Produto produto){
-		
+	public ResponseEntity<Produto> post(@RequestBody Produto produto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
-		
 	}
+	
 	@PutMapping
-	public ResponseEntity<Produto> put (@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
-		
+	public ResponseEntity<Produto> put(@RequestBody Produto produto){
+		return ResponseEntity.ok(produtoRepository.save(produto));
 	}
+	
 	@DeleteMapping("/{id}")
-	public void deleteId(@PathVariable long id){
-		produtoRepository.deleteById(id);
-		}
+	public void delete(@PathVariable long id){
+		produtoRepository.deleteById(id);		
+	}
+
+
 }
+
